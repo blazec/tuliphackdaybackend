@@ -1275,7 +1275,11 @@ func GetUserRepos(user string)  []map[string]interface{} {
       // json.Unmarshal(jsonLanguageData, &languages)
       // repoData["languages"] = languages
 
-      languages := []string{"Java", "PHP"}
+      languageSizeMap := map[string]int{"Java": 123, "PHP": 132, "Swift": 10}
+      languages := make([]string, 0)
+      for language, _ := range languageSizeMap {
+        languages = append(languages, language)
+      }
       repoData["languages"] = languages
 
       newRepos = append(newRepos, repoData)
