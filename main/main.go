@@ -6,6 +6,7 @@ import (
   "net/http"
   "github.com/gorilla/mux"
   "fmt"
+  // "io/ioutil"
 )
 
 
@@ -31,7 +32,7 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
       {"id": "2",
       "slackName": "ben.hackett",
       "name": "Ben Hackett",
-      "url": "ben.hackett",
+      "url": "ben.hackett"
     }]
   `
   var users []map[string]interface{}
@@ -81,9 +82,50 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 
 }
 
+// func GetUserRepos(user string)  {
+//   // "repos": [
+//   //   {
+//   //     "name": "AndroidRestService",
+//   //     "link": "https://github.com/BenCookie95/AndroidRestService",
+//   //     "languages": ["Java"]
+//   //   },
+//   //   {
+//   //     "name": "Blackjack",
+//   //     "link": "https://github.com/BenCookie95/Blackjack",
+//   //     "languages": ["Java"]
+//   //   }
+//   // ]
+//   var client http.Client
+//   var repos []map[string]interface{}
+//   resp, err := client.Get("https://api.github.com/users/bencookie95/repos")
+//   if err != nil {
+//
+//   }
+//   defer resp.Body.Close()
+//
+//   jsonData, err := ioutil.ReadAll(resp.Body)
+//   json.Unmarshal(jsonData, &repos)
+//
+//   // repos now has repos data from github for the specified user
+//
+//   var newRepos []map[string]interface{}
+//
+//   for i := range repos {
+//       var repoData map[string]interface{}
+//       repo := repos[i]
+//       repoData["name"] = repo["name"].(string)
+//       // repoData["link"] = "https://github.com/" + repo["full_name"].(string)
+//       newRepos = append(newRepos, repoData)
+//   }
+//   // return repos
+//   fmt.Println(newRepos)
+//
+// }
 
 func main() {
   router := mux.NewRouter()
+  // fmt.Println(GetUserRepos("ben")[0])
+  // GetUserRepos("ben")
   router.HandleFunc("/users/{name}", GetUsers).Methods("GET")
   router.HandleFunc("/user/{name}", GetUser).Methods("GET")
   log.Println("Listening on port 8000")
