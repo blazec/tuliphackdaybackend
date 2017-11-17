@@ -24,16 +24,32 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
   name = params["name"]
   fmt.Println(name)
   jsonData := `
-    [{
+    [
+    {
       "id": "1",
       "slackName": "Ben Cooke",
       "name": "Ben Cooke",
-      "url": "ben.cooke"},
-      {"id": "2",
+      "url": "ben.cooke"
+    },
+    {
+      "id": "2",
       "slackName": "ben.hackett",
       "name": "Ben Hackett",
       "url": "ben.hackett"
-    }]
+    },
+    {
+      "id": "3",
+      "slackName": "blaise",
+      "name": "Blaise Calaycay",
+      "url": "blaise.calaycay"
+    },
+    {
+      "id": "4",
+      "slackName": "jamesn",
+      "name": "James Nicolas",
+      "url": "james.nicolas"
+    }
+    ]
   `
   var users []map[string]interface{}
   err := json.Unmarshal([]byte(jsonData), &users)
@@ -111,11 +127,17 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 //   var newRepos []map[string]interface{}
 //
 //   for i := range repos {
-//       var repoData map[string]interface{}
+//       repoData := make(map[string]interface{})
 //       repo := repos[i]
-//       repoData["name"] = repo["name"].(string)
-//       // repoData["link"] = "https://github.com/" + repo["full_name"].(string)
-//       newRepos = append(newRepos, repoData)
+//       repoData["name"] = repo["name"]
+//       repoData["link"] = "https://github.com/" + repo["full_name"].(string)
+//
+//       // populate languages
+//       var languages []map[string]interface{}
+//       resp, err := client.Get(repoData["languages_url"])
+//       defer resp.Body.Close()
+//       jsonLanguageData, err := ioutil.ReadAll(resp.Body)
+//       json.Unmarshal(jsonLanguageData, &languages)
 //   }
 //   // return repos
 //   fmt.Println(newRepos)
