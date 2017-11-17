@@ -6,7 +6,7 @@ import (
   "net/http"
   "github.com/gorilla/mux"
   "fmt"
-  // "io/ioutil"
+  "io/ioutil"
   // "reflect"
 )
 
@@ -1264,19 +1264,18 @@ func GetUserRepos(user string)  []map[string]interface{} {
 
       // populate languages
 
-      //var languages []map[string]int
-      // var client http.Client
-      // resp, err := client.Get(repo["languages_url"].(string))
-      // if err != nil {
-      //
-      // }
-      // defer resp.Body.Close()
-      // jsonLanguageData, err := ioutil.ReadAll(resp.Body)
-      // json.Unmarshal(jsonLanguageData, &languages)
-      // repoData["languages"] = languages
-
-      languageSizeMap := map[string]int{"Java": 123, "PHP": 132, "Swift": 10}
+      var client http.Client
+      var languageSizeMap map[string]int
+      // languageSizeMap := map[string]int{"Java": 123, "PHP": 132, "Swift": 10}
       languages := make([]string, 0)
+
+      resp, err := client.Get(repo["languages_url"].(string))
+      if err != nil {
+
+      }
+      defer resp.Body.Close()
+      jsonLanguageData, err := ioutil.ReadAll(resp.Body)
+      json.Unmarshal(jsonLanguageData, &languageSizeMap)
       for language, _ := range languageSizeMap {
         languages = append(languages, language)
       }
